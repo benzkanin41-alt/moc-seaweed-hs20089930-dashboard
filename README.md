@@ -4,7 +4,9 @@ Static GitHub Pages dashboard for Thailand export data from the Ministry of Comm
 
 ## Online Dashboard
 
-After GitHub Pages is enabled, open `index.html` from the repository root.
+Open the dashboard online:
+
+https://benzkanin41-alt.github.io/moc-seaweed-hs20089930-dashboard/
 
 ## Dataset
 
