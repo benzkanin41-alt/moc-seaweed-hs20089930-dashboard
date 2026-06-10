@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HS 20089930 Export Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="dashboard-head">
+      <div class="head-copy">
+        <p class="eyebrow">Thailand Export Monitor</p>
+        <h1>สาหร่าย HS 20089930</h1>
+        <p id="coverageText" class="subtle"></p>
+      </div>
+      <div class="head-actions">
+        <a id="sourceLink" class="source-link" href="https://tradereport.moc.go.th/th/stat/reporthscodeexport01" target="_blank" rel="noreferrer">MOC Source</a>
+        <button id="downloadCsvBtn" type="button" class="action-btn">CSV</button>
+      </div>
+    </section>
+
+    <section id="kpiGrid" class="kpi-grid" aria-label="Key metrics"></section>
+
+    <section class="control-band" aria-label="Dashboard filters">
+      <div class="control-group">
+        <span class="control-label">ช่วงเวลา</span>
+        <div class="segmented" id="periodControls">
+          <button type="button" data-period="month" class="active">รายเดือน</button>
+          <button type="button" data-period="quarter">รายไตรมาส</button>
+          <button type="button" data-period="year">รายปี</button>
+        </div>
+      </div>
+      <label class="control-group">
+        <span class="control-label">มุมมอง</span>
+        <select id="dimensionSelect">
+          <option value="total">รวมทุกประเทศ</option>
+          <option value="country">รายประเทศ</option>
+          <option value="continent">รายทวีป</option>
+        </select>
+      </label>
+      <label class="control-group">
+        <span class="control-label">Metric</span>
+        <select id="metricSelect">
+          <option value="value">มูลค่า</option>
+          <option value="quantity">ปริมาณ</option>
+        </select>
+      </label>
+      <label class="control-group">
+        <span class="control-label">Growth</span>
+        <select id="growthSelect"></select>
+      </label>
+    </section>
+
+    <section class="entity-band" id="entityBand" aria-label="Entity filters">
+      <div class="entity-toolbar">
+        <label>
+          <span class="control-label">เลือกประเทศ/ทวีป</span>
+          <input id="entitySearch" type="search" placeholder="ค้นหา">
+        </label>
+        <div class="entity-actions">
+          <button id="selectTopBtn" type="button">Top 10</button>
+          <button id="selectAllBtn" type="button">All</button>
+          <button id="clearSelectionBtn" type="button">Clear</button>
+        </div>
+      </div>
+      <div id="entityList" class="entity-list"></div>
+    </section>
+
+    <section class="grid-two">
+      <article class="panel">
+        <div class="panel-title">
+          <div>
+            <h2>ยอดส่งออก</h2>
+            <p id="levelSubtitle" class="subtle"></p>
+          </div>
+          <span id="levelUnit" class="unit-pill"></span>
+        </div>
+        <div id="levelChart" class="chart"></div>
+        <div id="levelPointDetail" class="point-detail"></div>
+      </article>
+      <article class="panel">
+        <div class="panel-title">
+          <div>
+            <h2>การเติบโต</h2>
+            <p id="growthSubtitle" class="subtle"></p>
+          </div>
+          <span class="unit-pill">%</span>
+        </div>
+        <div id="growthChart" class="chart"></div>
+        <div id="growthPointDetail" class="point-detail"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">
+        <div>
+          <h2>ตัวเลขรายงวด</h2>
+          <p id="tableSubtitle" class="subtle"></p>
+        </div>
+        <div class="table-controls">
+          <label class="limit-control">
+            <span>เรียงตาม</span>
+            <select id="sortKeySelect">
+              <option value="period">งวด</option>
+              <option value="value">มูลค่า</option>
+              <option value="quantity">ปริมาณ</option>
+              <option value="momValue">MoM มูลค่า</option>
+              <option value="momQuantity">MoM ปริมาณ</option>
+              <option value="yoyValue">YoY มูลค่า</option>
+              <option value="yoyQuantity">YoY ปริมาณ</option>
+              <option value="qoqValue">QoQ มูลค่า</option>
+              <option value="qoqQuantity">QoQ ปริมาณ</option>
+            </select>
+          </label>
+          <label class="limit-control">
+            <span>ลำดับ</span>
+            <select id="sortDirSelect">
+              <option value="desc">มากไปน้อย</option>
+              <option value="asc">น้อยไปมาก</option>
+            </select>
+          </label>
+          <label class="limit-control">
+            <span>Rows</span>
+            <select id="rowLimitSelect">
+              <option value="50">50</option>
+              <option value="100" selected>100</option>
+              <option value="250">250</option>
+              <option value="100000">All</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>งวด</th>
+              <th>รายการ</th>
+              <th class="num">มูลค่า</th>
+              <th class="num">ปริมาณ</th>
+              <th class="num">Share</th>
+              <th class="num" id="growthValueHeader">Growth มูลค่า</th>
+              <th class="num" id="growthQuantityHeader">Growth ปริมาณ</th>
+            </tr>
+          </thead>
+          <tbody id="dataTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="source-panel">
+      <h2>Source & Validation</h2>
+      <div id="sourceDetails" class="source-grid"></div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

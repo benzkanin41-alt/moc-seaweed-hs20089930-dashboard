@@ -1,0 +1,71 @@
+{
+  "url": "http://127.0.0.1:8778/",
+  "checkedAtUtc": "2026-06-10T10:01:19.350Z",
+  "edge": "Edg/149.0.4022.52",
+  "desktop": {
+    "label": "desktop-1440x1200",
+    "baseChecks": {
+      "title": "HS 20089930 Export Dashboard",
+      "h1": "สาหร่าย HS 20089930",
+      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-04\nlatest source month: เม.ย. 2569",
+      "kpiCount": 6,
+      "levelPointCount": 64,
+      "growthPointCount": 63,
+      "tableRows": 64,
+      "sourceItems": 8,
+      "sortControls": 3,
+      "bodyOverflowX": false,
+      "clippedPanels": 0,
+      "chartSvgCount": 2
+    },
+    "clickDetail": {
+      "clicked": true,
+      "selectedCount": 1,
+      "detail": "ม.ค. 2564\nรวมทุกประเทศ\nมูลค่า\n193,707,098\nมูลค่า\n193,707,098\nปริมาณ\n319,793\nShare มูลค่า\n+100%\nShare ปริมาณ\n+100%\nMoM มูลค่า\n-\nMoM ปริมาณ\n-\nYoY มูลค่า\n-\nYoY ปริมาณ\n-\nQoQ มูลค่า\n-\nQoQ ปริมาณ\n-"
+    },
+    "keyboardDetail": {
+      "activated": true,
+      "selectedCount": 1,
+      "detail": "ก.พ. 2564\nรวมทุกประเทศ\nMOM มูลค่า\n-10.3%\nมูลค่า\n173,731,417\nปริมาณ\n380,880\nShare มูลค่า\n+100%\nShare ปริมาณ\n+100%\nMoM มูลค่า\n-10.3%\nMoM ปริมาณ\n+19.1%\nYoY มูลค่า\n-\nYoY ปริมาณ\n-\nQoQ มูลค่า\n-\nQoQ ปริมาณ\n-"
+    },
+    "countryView": {
+      "labels": 84,
+      "checked": 10,
+      "levelPoints": 587,
+      "tableRows": 100
+    }
+  },
+  "mobile": {
+    "label": "mobile-390x1600",
+    "baseChecks": {
+      "title": "HS 20089930 Export Dashboard",
+      "h1": "สาหร่าย HS 20089930",
+      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-04\nlatest source month: เม.ย. 2569",
+      "kpiCount": 6,
+      "levelPointCount": 64,
+      "growthPointCount": 63,
+      "tableRows": 64,
+      "sourceItems": 8,
+      "sortControls": 3,
+      "bodyOverflowX": false,
+      "clippedPanels": 0,
+      "chartSvgCount": 2
+    },
+    "clickDetail": {
+      "clicked": true,
+      "selectedCount": 1,
+      "detail": "ม.ค. 2564\nรวมทุกประเทศ\nมูลค่า\n193,707,098\nมูลค่า\n193,707,098\nปริมาณ\n319,793\nShare มูลค่า\n+100%\nShare ปริมาณ\n+100%\nMoM มูลค่า\n-\nMoM ปริมาณ\n-\nYoY มูลค่า\n-\nYoY ปริมาณ\n-\nQoQ มูลค่า\n-\nQoQ ปริมาณ\n-"
+    },
+    "keyboardDetail": {
+      "activated": true,
+      "selectedCount": 1,
+      "detail": "ก.พ. 2564\nรวมทุกประเทศ\nMOM มูลค่า\n-10.3%\nมูลค่า\n173,731,417\nปริมาณ\n380,880\nShare มูลค่า\n+100%\nShare ปริมาณ\n+100%\nMoM มูลค่า\n-10.3%\nMoM ปริมาณ\n+19.1%\nYoY มูลค่า\n-\nYoY ปริมาณ\n-\nQoQ มูลค่า\n-\nQoQ ปริมาณ\n-"
+    },
+    "countryView": {
+      "labels": 84,
+      "checked": 10,
+      "levelPoints": 587,
+      "tableRows": 100
+    }
+  }
+}
