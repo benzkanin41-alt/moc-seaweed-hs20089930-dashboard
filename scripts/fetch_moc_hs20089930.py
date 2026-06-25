@@ -21,7 +21,7 @@ START_YEAR = 2021
 START_MONTH = 1
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT_DIR = ROOT / "outputs" / "dashboard"
+OUT_DIR = ROOT
 DATA_DIR = OUT_DIR / "data"
 RAW_DIR = ROOT / "work" / "moc_raw"
 

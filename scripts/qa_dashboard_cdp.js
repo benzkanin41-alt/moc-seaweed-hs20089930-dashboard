@@ -5,9 +5,9 @@ const path = require("path");
 const { spawn } = require("child_process");
 
 const ROOT = path.resolve(__dirname, "..");
-const DASHBOARD_URL = "http://127.0.0.1:8778/";
+const DASHBOARD_URL = process.env.DASHBOARD_URL || "http://127.0.0.1:8778/";
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
-const OUT_DIR = path.join(ROOT, "outputs", "dashboard");
+const OUT_DIR = ROOT;
 const PROFILE_DIR = path.join(ROOT, "work", "edge-cdp-profile");
 
 function sleep(ms) {
