@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:8778/",
-  "checkedAtUtc": "2026-07-24T04:36:45.303Z",
+  "checkedAtUtc": "2026-07-24T05:07:23.164Z",
   "edge": "Edg/150.0.4078.83",
   "desktop": {
     "label": "desktop-1440x1200",
@@ -16,7 +16,8 @@
       "sortControls": 3,
       "bodyOverflowX": false,
       "clippedPanels": 0,
-      "chartSvgCount": 2
+      "chartSvgCount": 2,
+      "xAxisLabelOverlapCount": 0
     },
     "clickDetail": {
       "clicked": true,
@@ -49,7 +50,8 @@
       "sortControls": 3,
       "bodyOverflowX": false,
       "clippedPanels": 0,
-      "chartSvgCount": 2
+      "chartSvgCount": 2,
+      "xAxisLabelOverlapCount": 0
     },
     "clickDetail": {
       "clicked": true,

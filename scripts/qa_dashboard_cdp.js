@@ -180,6 +180,15 @@ async function runChecks(cdp, label) {
         bodyOverflowX: document.documentElement.scrollWidth > document.documentElement.clientWidth + 2,
         clippedPanels: rects.filter((rect) => rect.left < -2 || rect.right > window.innerWidth + 2).length,
         chartSvgCount: document.querySelectorAll('.chart svg').length,
+        xAxisLabelOverlapCount: (() => {
+          const charts = ['#levelChart', '#growthChart'];
+          return charts.reduce((total, chartSelector) => {
+            const labels = [...document.querySelectorAll(chartSelector + ' .x-axis-label')]
+              .map((node) => node.getBoundingClientRect())
+              .sort((a, b) => a.left - b.left);
+            return total + labels.slice(1).filter((rect, index) => rect.left < labels[index].right + 2).length;
+          }, 0);
+        })(),
       };
     })()`,
   );
@@ -230,6 +239,9 @@ async function runChecks(cdp, label) {
     })()`,
   );
 
+  if (baseChecks.xAxisLabelOverlapCount !== 0) {
+    throw new Error(`${label}: X-axis labels overlap (${baseChecks.xAxisLabelOverlapCount}).`);
+  }
   return { label, baseChecks, clickDetail, keyboardDetail, countryView };
 }
 
