@@ -239,9 +239,15 @@ def main() -> None:
     periods = period_range(latest_year, latest_month)
     for index, (year, month) in enumerate(periods, start=1):
         payload = make_payload(year, month, year_name_by_id.get(str(year), year + 543), hs_version, hs_name)
-        response_data = request_json(session, "POST", RESULT_ENDPOINT, json_payload=payload)
         raw_path = RAW_DIR / f"report_hs{HS_CODE}_{year}_{month:02d}.json"
-        raw_path.write_text(json.dumps(response_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        is_latest_period = (year, month) == (latest_year, latest_month)
+        if raw_path.exists() and not is_latest_period:
+            response_data = json.loads(raw_path.read_text(encoding="utf-8"))
+            source_status = "cached"
+        else:
+            response_data = request_json(session, "POST", RESULT_ENDPOINT, json_payload=payload)
+            raw_path.write_text(json.dumps(response_data, ensure_ascii=False, indent=2), encoding="utf-8")
+            source_status = "live"
 
         records = response_data.get("records", [])
         if not records:
@@ -315,7 +321,7 @@ def main() -> None:
                 "quantityDiff": total_quantity - country_quantity_sum,
             }
         )
-        print(f"[{index:02d}/{len(periods)}] fetched {period_key}: {country_count} country rows")
+        print(f"[{index:02d}/{len(periods)}] {source_status} {period_key}: {country_count} country rows")
         time.sleep(0.05)
 
     continent_monthly: dict[tuple[str, str], dict[str, Any]] = {}

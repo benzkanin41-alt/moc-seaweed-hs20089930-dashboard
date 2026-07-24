@@ -16,16 +16,16 @@ https://benzkanin41-alt.github.io/moc-seaweed-hs20089930-dashboard/
 - HS name from MOC lookup: `20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม`
 - Source: https://tradereport.moc.go.th/th/stat/reporthscodeexport01
 - Endpoint: `https://tradereport.moc.go.th/stat/reporthscodeexport01/result`
-- Coverage: `2021-01` to `2026-05`
-- Latest source month: `พ.ค. 2569`
+- Coverage: `2021-01` to `2026-06`
+- Latest source month: มิ.ย. 2569
 - Currency: บาท
 
 ## Validation
 
-- Months fetched: `65`
-- Country-month rows: `3,051`
-- Total rows: `65`
-- Continent rows: `345`
+- Months fetched: `66`
+- Country-month rows: `3,113`
+- Total rows: `66`
+- Continent rows: `351`
 - Reconciliation max value diff: `0.0`
 - Reconciliation max quantity diff: `0.0`
 - Unmapped continent country IDs: none
@@ -61,4 +61,4 @@ The reconciliation file is available at `data/validation_reconciliation.csv`.
 
 ## Notes
 
-This dashboard is a static snapshot generated from MOC data fetched on `2026-06-25`. It does not call the MOC API at page load time.
+This dashboard is a static snapshot generated from MOC data fetched on `2026-07-24`. It does not call the MOC API at page load time.
