@@ -535,7 +535,7 @@
     const x = (sort) => pad.left + (xMax === xMin ? plotW / 2 : ((sort - xMin) / (xMax - xMin)) * plotW);
     const y = (value) => pad.top + (1 - (value - yMin) / (yMax - yMin)) * plotH;
     const periodTicks = series[0].points;
-    const tickCount = Math.min(8, periodTicks.length);
+    const tickCount = Math.min(7, periodTicks.length);
     const tickIndexes = new Set(
       Array.from(
         { length: tickCount },
