@@ -1,17 +1,17 @@
 {
   "url": "http://127.0.0.1:8778/",
-  "checkedAtUtc": "2026-07-24T05:15:17.817Z",
-  "edge": "Edg/150.0.4078.83",
+  "checkedAtUtc": "2026-08-27T05:18:27.180Z",
+  "edge": "Edg/151.0.4129.107",
   "desktop": {
     "label": "desktop-1440x1200",
     "baseChecks": {
       "title": "HS 20089930 Export Dashboard",
       "h1": "สาหร่าย HS 20089930",
-      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-06\nlatest source month: มิ.ย. 2569",
+      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-07\nlatest source month: ก.ค. 2569",
       "kpiCount": 6,
-      "levelPointCount": 66,
-      "growthPointCount": 65,
-      "tableRows": 66,
+      "levelPointCount": 67,
+      "growthPointCount": 66,
+      "tableRows": 67,
       "sourceItems": 8,
       "sortControls": 3,
       "bodyOverflowX": false,
@@ -30,9 +30,9 @@
       "detail": "ก.พ. 2564\nรวมทุกประเทศ\nMOM มูลค่า\n-10.3%\nมูลค่า\n173,731,417\nปริมาณ\n380,880\nShare มูลค่า\n+100%\nShare ปริมาณ\n+100%\nMoM มูลค่า\n-10.3%\nMoM ปริมาณ\n+19.1%\nYoY มูลค่า\n-\nYoY ปริมาณ\n-\nQoQ มูลค่า\n-\nQoQ ปริมาณ\n-"
     },
     "countryView": {
-      "labels": 84,
+      "labels": 85,
       "checked": 10,
-      "levelPoints": 611,
+      "levelPoints": 633,
       "tableRows": 100
     }
   },
@@ -41,11 +41,11 @@
     "baseChecks": {
       "title": "HS 20089930 Export Dashboard",
       "h1": "สาหร่าย HS 20089930",
-      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-06\nlatest source month: มิ.ย. 2569",
+      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-07\nlatest source month: ก.ค. 2569",
       "kpiCount": 6,
-      "levelPointCount": 66,
-      "growthPointCount": 65,
-      "tableRows": 66,
+      "levelPointCount": 67,
+      "growthPointCount": 66,
+      "tableRows": 67,
       "sourceItems": 8,
       "sortControls": 3,
       "bodyOverflowX": false,
@@ -64,9 +64,9 @@
       "detail": "ก.พ. 2564\nรวมทุกประเทศ\nMOM มูลค่า\n-10.3%\nมูลค่า\n173,731,417\nปริมาณ\n380,880\nShare มูลค่า\n+100%\nShare ปริมาณ\n+100%\nMoM มูลค่า\n-10.3%\nMoM ปริมาณ\n+19.1%\nYoY มูลค่า\n-\nYoY ปริมาณ\n-\nQoQ มูลค่า\n-\nQoQ ปริมาณ\n-"
     },
     "countryView": {
-      "labels": 84,
+      "labels": 85,
       "checked": 10,
-      "levelPoints": 611,
+      "levelPoints": 633,
       "tableRows": 100
     }
   }
