@@ -16,21 +16,25 @@ https://benzkanin41-alt.github.io/moc-seaweed-hs20089930-dashboard/
 - HS name from MOC lookup: `20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม`
 - Source: https://tradereport.moc.go.th/th/stat/reporthscodeexport01
 - Endpoint: `https://tradereport.moc.go.th/stat/reporthscodeexport01/result`
-- Coverage: `2021-01` to `2026-06`
-- Latest source month: มิ.ย. 2569
+- Coverage: `2021-01` to `2026-08`
+- Latest source month: ส.ค. 2569
 - Currency: บาท
 
 ## Validation
 
-- Months fetched: `66`
-- Country-month rows: `3,113`
-- Total rows: `66`
-- Continent rows: `351`
+- Months fetched: `68`
+- Country-month rows: `3,247`
+- Total rows: `68`
+- Continent rows: `363`
 - Reconciliation max value diff: `0.0`
 - Reconciliation max quantity diff: `0.0`
 - Unmapped continent country IDs: none
 
 The reconciliation file is available at `data/validation_reconciliation.csv`.
+
+## Refresh
+
+Run `python -X utf8 .\scripts\fetch_moc_hs20089930.py` to fetch the latest month and regenerate the dataset. When MOC revises previously published data, add `--refresh-year 2025` (repeat for each affected year) to refetch those months before regeneration.
 
 ## Files
 
@@ -54,11 +58,11 @@ The reconciliation file is available at `data/validation_reconciliation.csv`.
 - `node --check app.js`
 - `node --check data.js`
 - `curl http://127.0.0.1:8778/`
-- Desktop screenshot: `1440x1200`
-- Mobile screenshot: `390x1600`
-- DOM smoke checks for KPI cards, charts, table controls, source section, no horizontal overflow
+- Edge/CDP desktop layout check: `1440x1200`
+- Edge/CDP mobile layout check: `390x1600`
+- DOM smoke checks for KPI cards, charts, table controls, source section, no horizontal overflow, and no overlapping x-axis labels
 - Chart point interaction checks for mouse click and keyboard Enter
 
 ## Notes
 
-This dashboard is a static snapshot generated from MOC data fetched on `2026-07-24`. It does not call the MOC API at page load time.
+This dashboard is a static snapshot generated from MOC data fetched on `2026-09-25`. It does not call the MOC API at page load time.

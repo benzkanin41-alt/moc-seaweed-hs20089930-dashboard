@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import re
@@ -206,6 +207,16 @@ def write_csv(path: Path, rows: list[dict[str, Any]], fieldnames: list[str]) -> 
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Refresh the HS 20089930 export dashboard.")
+    parser.add_argument(
+        "--refresh-year",
+        type=int,
+        action="append",
+        default=[],
+        help="Fetch this year's months again from MOC instead of using cached responses.",
+    )
+    args = parser.parse_args()
+
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     RAW_DIR.mkdir(parents=True, exist_ok=True)
@@ -222,6 +233,10 @@ def main() -> None:
     )
 
     latest_year, latest_month, app_id = get_latest_period(session)
+    refresh_years = set(args.refresh_year)
+    invalid_years = sorted(year for year in refresh_years if year < START_YEAR or year > latest_year)
+    if invalid_years:
+        parser.error(f"Refresh year must be between {START_YEAR} and {latest_year}: {invalid_years}")
     years = request_json(session, "GET", f"{BASE_URL}/lookup/years?lang=th")
     year_name_by_id = {str(row["id"]): row["name"] for row in years}
     country_lookup = request_json(session, "GET", f"{BASE_URL}/lookup/country")
@@ -241,7 +256,7 @@ def main() -> None:
         payload = make_payload(year, month, year_name_by_id.get(str(year), year + 543), hs_version, hs_name)
         raw_path = RAW_DIR / f"report_hs{HS_CODE}_{year}_{month:02d}.json"
         is_latest_period = (year, month) == (latest_year, latest_month)
-        if raw_path.exists() and not is_latest_period:
+        if raw_path.exists() and not is_latest_period and year not in refresh_years:
             response_data = json.loads(raw_path.read_text(encoding="utf-8"))
             source_status = "cached"
         else:

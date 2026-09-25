@@ -1,17 +1,17 @@
 {
   "url": "http://127.0.0.1:8778/",
-  "checkedAtUtc": "2026-08-27T05:18:27.180Z",
-  "edge": "Edg/151.0.4129.107",
+  "checkedAtUtc": "2026-09-25T04:50:31.183Z",
+  "edge": "Edg/153.0.4234.48",
   "desktop": {
     "label": "desktop-1440x1200",
     "baseChecks": {
       "title": "HS 20089930 Export Dashboard",
       "h1": "สาหร่าย HS 20089930",
-      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-07\nlatest source month: ก.ค. 2569",
+      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-08\nlatest source month: ส.ค. 2569",
       "kpiCount": 6,
-      "levelPointCount": 67,
-      "growthPointCount": 66,
-      "tableRows": 67,
+      "levelPointCount": 68,
+      "growthPointCount": 67,
+      "tableRows": 68,
       "sourceItems": 8,
       "sortControls": 3,
       "bodyOverflowX": false,
@@ -32,7 +32,7 @@
     "countryView": {
       "labels": 85,
       "checked": 10,
-      "levelPoints": 633,
+      "levelPoints": 616,
       "tableRows": 100
     }
   },
@@ -41,11 +41,11 @@
     "baseChecks": {
       "title": "HS 20089930 Export Dashboard",
       "h1": "สาหร่าย HS 20089930",
-      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-07\nlatest source month: ก.ค. 2569",
+      "coverage": "20089930 : ของก้าน ราก และส่วนอื่นของพืชที่บริโภคได้ ไม่รวมถึงผลไม้หรือลูกนัต จะเติมน้ำตาลหรือสารทำให้หวานอื่น ๆ หรือสุรา หรือไม่ก็ตาม | 2021-01 ถึง 2026-08\nlatest source month: ส.ค. 2569",
       "kpiCount": 6,
-      "levelPointCount": 67,
-      "growthPointCount": 66,
-      "tableRows": 67,
+      "levelPointCount": 68,
+      "growthPointCount": 67,
+      "tableRows": 68,
       "sourceItems": 8,
       "sortControls": 3,
       "bodyOverflowX": false,
@@ -66,7 +66,7 @@
     "countryView": {
       "labels": 85,
       "checked": 10,
-      "levelPoints": 633,
+      "levelPoints": 616,
       "tableRows": 100
     }
   }
