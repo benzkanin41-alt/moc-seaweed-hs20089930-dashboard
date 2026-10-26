@@ -7,7 +7,9 @@ const { spawn } = require("child_process");
 const ROOT = path.resolve(__dirname, "..");
 const DASHBOARD_URL = process.env.DASHBOARD_URL || "http://127.0.0.1:8778/";
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
-const OUT_DIR = ROOT;
+const RESULTS_PATH = path.resolve(process.env.QA_RESULTS_OUT || path.join(ROOT, "qa-results.json"));
+const SCREENSHOT_DIR = path.resolve(process.env.QA_SCREENSHOT_DIR || path.join(ROOT, "work", "qa-local"));
+const EXPECTED_LATEST_PERIOD = process.env.EXPECTED_LATEST_PERIOD;
 const PROFILE_DIR = path.join(ROOT, "work", "edge-cdp-profile");
 
 function sleep(ms) {
@@ -158,8 +160,8 @@ async function loadPage(cdp, url) {
   await evaluate(cdp, "new Promise((resolve) => setTimeout(resolve, 700))");
 }
 
-async function runChecks(cdp, label) {
-  const baseChecks = await evaluate(
+async function readLayout(cdp) {
+  return evaluate(
     cdp,
     `(() => {
       const rects = [...document.querySelectorAll('.control-band, .panel, .kpi, .source-panel')]
@@ -171,6 +173,9 @@ async function runChecks(cdp, label) {
         title: document.title,
         h1: document.querySelector('h1')?.textContent || '',
         coverage: document.querySelector('#coverageText')?.textContent || '',
+        latestPeriod: window.MOC_EXPORT_DATA?.metadata.latestPeriod || '',
+        expectedMonthlyPoints: window.MOC_EXPORT_DATA?.totals.length || 0,
+        latestSelectedPeriod: document.querySelector('#levelChart .chart-point.selected')?.dataset.periodKey || '',
         kpiCount: document.querySelectorAll('.kpi').length,
         levelPointCount: document.querySelectorAll('#levelChart [data-chart-point]').length,
         growthPointCount: document.querySelectorAll('#growthChart [data-chart-point]').length,
@@ -192,6 +197,30 @@ async function runChecks(cdp, label) {
       };
     })()`,
   );
+}
+
+function assertLayout(checks, label) {
+  if (!checks.h1.includes("20089930") || checks.kpiCount !== 6 || checks.chartSvgCount !== 2 ||
+      checks.levelPointCount === 0 || checks.growthPointCount === 0 || checks.tableRows === 0) {
+    throw new Error(`${label}: Expected dashboard content is missing.`);
+  }
+  if (EXPECTED_LATEST_PERIOD && checks.latestPeriod !== EXPECTED_LATEST_PERIOD) {
+    throw new Error(`${label}: Expected ${EXPECTED_LATEST_PERIOD}, received ${checks.latestPeriod}.`);
+  }
+  if (checks.bodyOverflowX || checks.clippedPanels !== 0 || checks.xAxisLabelOverlapCount !== 0) {
+    throw new Error(`${label}: Layout overflow, clipping, or overlapping X-axis labels.`);
+  }
+}
+
+async function runChecks(cdp, label) {
+  const baseChecks = await readLayout(cdp);
+  assertLayout(baseChecks, label);
+  if (baseChecks.levelPointCount !== baseChecks.expectedMonthlyPoints ||
+      baseChecks.latestSelectedPeriod !== baseChecks.latestPeriod) {
+    throw new Error(`${label}: The latest month is not rendered and selected.`);
+  }
+  const screenshot = await cdp.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
+  fs.writeFileSync(path.join(SCREENSHOT_DIR, `${label}.png`), Buffer.from(screenshot.data, "base64"));
 
   const clickDetail = await evaluate(
     cdp,
@@ -239,10 +268,36 @@ async function runChecks(cdp, label) {
     })()`,
   );
 
-  if (baseChecks.xAxisLabelOverlapCount !== 0) {
-    throw new Error(`${label}: X-axis labels overlap (${baseChecks.xAxisLabelOverlapCount}).`);
+  if (!clickDetail.clicked || clickDetail.selectedCount !== 1 ||
+      !keyboardDetail.activated || keyboardDetail.selectedCount !== 1 || countryView.checked !== 10) {
+    throw new Error(`${label}: Chart interaction or country selection failed.`);
   }
-  return { label, baseChecks, clickDetail, keyboardDetail, countryView };
+  const views = [];
+  for (const view of [
+    { dimension: "country", period: "month", metric: "value" },
+    { dimension: "continent", period: "month", metric: "value" },
+    { dimension: "total", period: "quarter", metric: "value" },
+    { dimension: "total", period: "year", metric: "value" },
+    { dimension: "total", period: "month", metric: "quantity" },
+  ]) {
+    await evaluate(cdp, `(() => {
+      const view = ${JSON.stringify(view)};
+      const dimension = document.querySelector('#dimensionSelect');
+      dimension.value = view.dimension;
+      dimension.dispatchEvent(new Event('change', { bubbles: true }));
+      document.querySelector('[data-period="' + view.period + '"]').click();
+      const metric = document.querySelector('#metricSelect');
+      metric.value = view.metric;
+      metric.dispatchEvent(new Event('change', { bubbles: true }));
+      return new Promise((resolve) => setTimeout(resolve, 80));
+    })()`);
+    const layout = await readLayout(cdp);
+    assertLayout(layout, `${label}/${view.dimension}/${view.period}/${view.metric}`);
+    views.push({ ...view, levelPoints: layout.levelPointCount, growthPoints: layout.growthPointCount,
+      bodyOverflowX: layout.bodyOverflowX, clippedPanels: layout.clippedPanels,
+      xAxisLabelOverlapCount: layout.xAxisLabelOverlapCount });
+  }
+  return { label, baseChecks, clickDetail, keyboardDetail, countryView, views };
 }
 
 async function main() {
@@ -252,6 +307,7 @@ async function main() {
   const port = await findFreePort();
   fs.rmSync(PROFILE_DIR, { recursive: true, force: true });
   fs.mkdirSync(PROFILE_DIR, { recursive: true });
+  fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
 
   const edge = spawn(EDGE, [
     "--headless=new",
@@ -262,7 +318,7 @@ async function main() {
     `--user-data-dir=${PROFILE_DIR}`,
     "--window-size=1440,1200",
     "about:blank",
-  ], { stdio: "ignore" });
+  ], { stdio: "ignore", windowsHide: true });
 
   try {
     const version = await waitForDebugger(port);
@@ -272,27 +328,27 @@ async function main() {
     await cdp.send("Page.enable");
     await cdp.send("Runtime.enable");
 
-    await loadPage(cdp, DASHBOARD_URL);
-    const desktop = await runChecks(cdp, "desktop-1440x1200");
-
-    await cdp.send("Emulation.setDeviceMetricsOverride", {
-      width: 390,
-      height: 1600,
-      deviceScaleFactor: 1,
-      mobile: true,
-    });
-    await loadPage(cdp, DASHBOARD_URL);
-    const mobile = await runChecks(cdp, "mobile-390x1600");
+    const checks = {};
+    for (const viewport of [
+      { key: "desktop", width: 1440, height: 1200, mobile: false },
+      { key: "tablet", width: 826, height: 1200, mobile: false },
+      { key: "mobile", width: 390, height: 1600, mobile: true },
+    ]) {
+      await cdp.send("Emulation.setDeviceMetricsOverride", {
+        width: viewport.width, height: viewport.height, deviceScaleFactor: 1, mobile: viewport.mobile,
+      });
+      await loadPage(cdp, DASHBOARD_URL);
+      checks[viewport.key] = await runChecks(cdp, `${viewport.key}-${viewport.width}x${viewport.height}`);
+    }
 
     cdp.close();
     const results = {
       url: DASHBOARD_URL,
       checkedAtUtc: new Date().toISOString(),
       edge: version.Browser,
-      desktop,
-      mobile,
+      ...checks,
     };
-    fs.writeFileSync(path.join(OUT_DIR, "qa-results.json"), JSON.stringify(results, null, 2), "utf8");
+    fs.writeFileSync(RESULTS_PATH, JSON.stringify(results, null, 2), "utf8");
     console.log(JSON.stringify(results, null, 2));
   } finally {
     edge.kill();
